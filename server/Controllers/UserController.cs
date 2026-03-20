@@ -5,6 +5,7 @@ using server.DTOs;
 using server.DTOs.user;
 using server.Models;
 using server.Repositories;
+using server.Services;
 
 namespace server.Controllers
 {
@@ -14,7 +15,13 @@ namespace server.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepo;
-        public UserController(IUserRepository userRepo) => _userRepo = userRepo;
+        private readonly IMessageBusClient _messageBusClient;
+
+        public UserController(IUserRepository userRepo, IMessageBusClient messageBusClient)
+        {
+            _userRepo = userRepo;
+            _messageBusClient = messageBusClient;
+        }
 
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -29,6 +36,7 @@ namespace server.Controllers
                     Name = u.Name,
                     Email = u.Email,
                     Role = u.Role,
+                    Status = u.Status.ToString().ToLower(),
                     CreatedAt = u.CreatedAtUTC,
                     UpdatedAt = u.UpdatedAtUTC
                 });
@@ -57,6 +65,7 @@ namespace server.Controllers
                     Name = user.Name,
                     Email = user.Email,
                     Role = user.Role,
+                    Status = user.Status.ToString().ToLower(),
                     CreatedAt = user.CreatedAtUTC,
                     UpdatedAt = user.UpdatedAtUTC
                 };
@@ -81,15 +90,33 @@ namespace server.Controllers
                 if (existingUser != null)
                     return Conflict(new { message = "Email already exists." });
 
+                // Generate 8-digit code
+                var verificationCode = new Random().Next(10000000, 99999999).ToString();
+
                 var user = new User
                 {
                     Name = dto.Name,
                     Email = dto.Email,
                     Password = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                    Role = "user"
+                    Role = "user",
+                    Status = UserStatus.Pending,
+                    VerificationCode = verificationCode,
+                    VerificationCodeExpiresAt = DateTime.UtcNow.AddMinutes(15)
                 };
 
                 var newlyCreatedUser = await _userRepo.CreateUserAsync(user);
+
+                // Send Email with verificationCode (RabbitMQ)
+                var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "EmailVerification.html");
+                var htmlBody = await System.IO.File.ReadAllTextAsync(templatePath);
+                htmlBody = htmlBody.Replace("{{Name}}", newlyCreatedUser.Name).Replace("{{Code}}", verificationCode);
+
+                await _messageBusClient.PublishEmailAsync(new EmailMessageDto
+                {
+                    ToEmail = newlyCreatedUser.Email,
+                    Subject = "Account Verification",
+                    Body = htmlBody
+                });
 
                 var response = new UserResponseDto
                 {
@@ -97,6 +124,7 @@ namespace server.Controllers
                     Name = newlyCreatedUser.Name,
                     Email = newlyCreatedUser.Email,
                     Role = newlyCreatedUser.Role,
+                    Status = newlyCreatedUser.Status.ToString().ToLower(),
                     CreatedAt = newlyCreatedUser.CreatedAtUTC,
                     UpdatedAt = newlyCreatedUser.UpdatedAtUTC
                 };
@@ -142,6 +170,7 @@ namespace server.Controllers
                     Name = updatedUser.Name,
                     Email = updatedUser.Email,
                     Role = updatedUser.Role,
+                    Status = updatedUser.Status.ToString().ToLower(),
                     CreatedAt = updatedUser.CreatedAtUTC,
                     UpdatedAt = updatedUser.UpdatedAtUTC
                 };
