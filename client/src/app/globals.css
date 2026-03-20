@@ -1,26 +1,252 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ========================================
+   GitHub-inspired Design System
+   ======================================== */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+:root {
+  /* Backgrounds */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f6f8fa;
+  --bg-tertiary: #f0f2f5;
+  --bg-canvas: #ffffff;
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+  --bg-card: #ffffff;
+  --bg-input: #ffffff;
+  --bg-banner: #0969da;
+
+  /* Borders */
+  --border-primary: #d1d9e0;
+  --border-secondary: #e0e6eb;
+  --border-focus: #0969da;
+
+  /* Text */
+  --text-primary: #1f2328;
+  --text-secondary: #656d76;
+  --text-tertiary: #8b949e;
+  --text-inverse: #ffffff;
+  --text-link: #0969da;
+
+  /* Accents */
+  --accent-primary: #0969da;
+  --accent-hover: #0550ae;
+  --accent-success: #1a7f37;
+  --accent-success-bg: #dafbe1;
+  --accent-danger: #cf222e;
+  --accent-danger-bg: #ffebe9;
+  --accent-warning: #9a6700;
+  --accent-warning-bg: #fff8c5;
+
+  /* Buttons */
+  --btn-primary-bg: #1f883d;
+  --btn-primary-hover: #1a7f37;
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: #f6f8fa;
+  --btn-secondary-hover: #eaeef2;
+  --btn-secondary-text: #24292f;
+  --btn-secondary-border: #d1d9e0;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 0 rgba(31, 35, 40, 0.04);
+  --shadow-md: 0 3px 6px rgba(140, 149, 159, 0.15);
+  --shadow-lg: 0 8px 24px rgba(140, 149, 159, 0.2);
+  --shadow-dropdown: 0 8px 24px rgba(140, 149, 159, 0.2);
+
+  /* Misc */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  /* Backgrounds */
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #1c2128;
+  --bg-canvas: #0d1117;
+  --bg-overlay: rgba(0, 0, 0, 0.7);
+  --bg-card: #161b22;
+  --bg-input: #0d1117;
+  --bg-banner: #1f6feb;
+
+  /* Borders */
+  --border-primary: #30363d;
+  --border-secondary: #21262d;
+  --border-focus: #388bfd;
+
+  /* Text */
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-tertiary: #6e7681;
+  --text-inverse: #0d1117;
+  --text-link: #58a6ff;
+
+  /* Accents */
+  --accent-primary: #58a6ff;
+  --accent-hover: #388bfd;
+  --accent-success: #3fb950;
+  --accent-success-bg: rgba(63, 185, 80, 0.15);
+  --accent-danger: #f85149;
+  --accent-danger-bg: rgba(248, 81, 73, 0.15);
+  --accent-warning: #d29922;
+  --accent-warning-bg: rgba(210, 153, 34, 0.15);
+
+  /* Buttons */
+  --btn-primary-bg: #238636;
+  --btn-primary-hover: #2ea043;
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: #21262d;
+  --btn-secondary-hover: #30363d;
+  --btn-secondary-text: #c9d1d9;
+  --btn-secondary-border: #363b42;
+
+  /* Shadows */
+  --shadow-sm: 0 0 transparent;
+  --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-dropdown: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+@theme inline {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-canvas: var(--bg-canvas);
+  --color-bg-overlay: var(--bg-overlay);
+  --color-bg-card: var(--bg-card);
+  --color-bg-input: var(--bg-input);
+  --color-bg-banner: var(--bg-banner);
+
+  --color-border-primary: var(--border-primary);
+  --color-border-secondary: var(--border-secondary);
+  --color-border-focus: var(--border-focus);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-inverse: var(--text-inverse);
+  --color-text-link: var(--text-link);
+
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-success: var(--accent-success);
+  --color-accent-success-bg: var(--accent-success-bg);
+  --color-accent-danger: var(--accent-danger);
+  --color-accent-danger-bg: var(--accent-danger-bg);
+  --color-accent-warning: var(--accent-warning);
+  --color-accent-warning-bg: var(--accent-warning-bg);
+
+  --color-button-primary: var(--btn-primary-bg);
+  --color-button-primary-hover: var(--btn-primary-hover);
+  --color-button-primary-text: var(--btn-primary-text);
+  --color-button-secondary: var(--btn-secondary-bg);
+  --color-button-secondary-hover: var(--btn-secondary-hover);
+  --color-button-secondary-text: var(--btn-secondary-text);
+  --color-button-secondary-border: var(--btn-secondary-border);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ========================================
+   Base Styles
+   ======================================== */
+
+* {
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes checkmark {
+  0% { stroke-dashoffset: 50; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.2s ease-out forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-tertiary) 50%, var(--bg-secondary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out forwards;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ========================================
+   Custom Scrollbar (for notification dropdown)
+   ======================================== */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--border-primary);
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
 }

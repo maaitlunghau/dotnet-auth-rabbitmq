@@ -26,8 +26,12 @@ export const useAuth = () => {
   });
 
   const logoutMutation = useMutation({
-    mutationFn: (email: string) => authApi.logout(email),
-    onSuccess: () => {
+    mutationFn: () => {
+      const refreshToken = useAuthStore.getState().refreshToken;
+      return authApi.logout(refreshToken || "");
+    },
+    onSettled: () => {
+      // Clear store regardless of API success (client-side logout)
       clearAuth();
       router.push("/login");
     },
@@ -38,6 +42,6 @@ export const useAuth = () => {
     isLoggingIn: loginMutation.isPending,
     register: registerMutation.mutate,
     isRegistering: registerMutation.isPending,
-    logout: logoutMutation.mutate,
+    logout: () => logoutMutation.mutate(),
   };
 };
