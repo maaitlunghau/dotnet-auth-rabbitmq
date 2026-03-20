@@ -1,4 +1,7 @@
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using server.Data;
 using server.Repositories;
 using server.Services;
@@ -10,12 +13,64 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseMySql(
-        builder.Configuration.GetConnectionString("ConnectedMySQL"),
+        builder.Configuration.GetConnectionString("MySQL"),
         ServerVersion.AutoDetect(builder.Configuration
-        .GetConnectionString("ConnectedMySQL"))
+        .GetConnectionString("MySQL"))
     ));
 
 builder.Services.AddScoped<IUserRepository, UserService>();
+builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRecordService>();
+builder.Services.AddSingleton<TokenService>();
+
+// configure JWT Bearer Authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        var secretKey = builder.Configuration["JWT:Key"]
+            ?? throw new InvalidOperationException("JWT:Key is not configured");
+        var issuer = builder.Configuration["JWT:Issuer"]
+            ?? throw new InvalidOperationException("JWT:Issuer is not configured");
+        var audience = builder.Configuration["JWT:Audience"]
+            ?? throw new InvalidOperationException("JWT:Audience is not configured");
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidIssuer = issuer,
+            ValidAudience = audience,
+            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secretKey)),
+
+            ClockSkew = TimeSpan.Zero
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = async context =>
+            {
+                var jti = context.Principal?.FindFirst(JwtRegisteredClaimNames.Jti)?.Value;
+                if (string.IsNullOrEmpty(jti))
+                {
+                    context.Fail("Missing JTI claim in token");
+                    return;
+                }
+
+                var db = context.HttpContext.RequestServices.GetRequiredService<DataContext>();
+
+                var refreshToken = await db.RefreshTokenRecords
+                    .FirstOrDefaultAsync(rt => rt.AccessTokenJti == jti);
+
+                if (refreshToken != null && !refreshToken.IsActive)
+                {
+                    context.Fail("Token has been revoked or expired");
+                    return;
+                }
+            }
+        };
+    });
 
 var app = builder.Build();
 
@@ -27,6 +82,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
