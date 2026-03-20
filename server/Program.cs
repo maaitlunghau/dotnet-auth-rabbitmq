@@ -13,9 +13,9 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseMySql(
-        builder.Configuration.GetConnectionString("ConnectedMySQL"),
+        builder.Configuration.GetConnectionString("MySQL"),
         ServerVersion.AutoDetect(builder.Configuration
-        .GetConnectionString("ConnectedMySQL"))
+        .GetConnectionString("MySQL"))
     ));
 
 builder.Services.AddScoped<IUserRepository, UserService>();
