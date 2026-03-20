@@ -1,0 +1,110 @@
+'use client'
+
+import { useState } from "react"
+import Link from "next/link"
+import { Shield, ArrowLeft, Loader2, CheckCircle2, Mail } from "lucide-react"
+
+export default function ForgotPasswordPage() {
+  const [email, setEmail] = useState("")
+  const [status, setStatus] = useState<"idle" | "loading" | "sent">("idle")
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus("loading")
+    // Simulate API call (no backend endpoint exists yet)
+    setTimeout(() => setStatus("sent"), 1500)
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-bg-secondary px-4">
+      {/* Logo */}
+      <div className="mb-6 animate-fade-in">
+        <div className="w-12 h-12 bg-text-primary rounded-xl flex items-center justify-center mx-auto">
+          <Shield size={24} className="text-text-inverse" />
+        </div>
+      </div>
+
+      <div className="w-full max-w-sm animate-fade-in" style={{ animationDelay: "0.1s" }}>
+        {status === "sent" ? (
+          /* Success State */
+          <div className="bg-bg-card border border-border-primary rounded-xl p-8 text-center animate-scale-in">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent-success-bg flex items-center justify-center">
+              <Mail size={28} className="text-accent-success" />
+            </div>
+            <h2 className="text-xl font-semibold text-text-primary mb-2">Check your email</h2>
+            <p className="text-sm text-text-secondary mb-1">
+              We sent a password reset link to
+            </p>
+            <p className="text-sm font-medium text-text-primary mb-6">{email}</p>
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-1.5 text-sm text-accent-primary font-medium hover:underline"
+            >
+              <ArrowLeft size={14} />
+              Back to sign in
+            </Link>
+          </div>
+        ) : (
+          /* Form State */
+          <>
+            <h1 className="text-2xl font-semibold text-text-primary text-center mb-2">
+              Reset your password
+            </h1>
+            <p className="text-sm text-text-secondary text-center mb-6">
+              Enter your email address and we'll send you a link to reset your password.
+            </p>
+
+            <div className="bg-bg-card border border-border-primary rounded-xl p-6 mb-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-text-primary mb-1.5">
+                    Email address
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="w-full px-3 py-2 text-sm bg-bg-input border border-border-primary rounded-lg
+                      text-text-primary placeholder:text-text-tertiary
+                      focus:outline-none focus:ring-2 focus:ring-border-focus focus:border-border-focus
+                      transition-all"
+                    placeholder="you@example.com"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="w-full py-2.5 text-sm font-medium text-button-primary-text bg-button-primary
+                    hover:bg-button-primary-hover rounded-lg transition-colors
+                    disabled:opacity-60 disabled:cursor-not-allowed
+                    flex items-center justify-center gap-2"
+                >
+                  {status === "loading" ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    "Send reset link"
+                  )}
+                </button>
+              </form>
+            </div>
+
+            <div className="text-center">
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors"
+              >
+                <ArrowLeft size={14} />
+                Back to sign in
+              </Link>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
