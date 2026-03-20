@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "kWB6MNch9pc=",
+  "dgSpecHash": "dFCkMrtEQMU=",
   "success": true,
   "projectFilePath": "/Users/maaitlunghau/Documents/Projects/dotnet-auth-rabbitmq/server/server.csproj",
   "expectedPackageFiles": [
     "/Users/maaitlunghau/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/bouncycastle.cryptography/2.6.2/bouncycastle.cryptography.2.6.2.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/mailkit/4.15.1/mailkit.4.15.1.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.25/microsoft.aspnetcore.authentication.jwtbearer.8.0.25.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/microsoft.bcl.asyncinterfaces/6.0.0/microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/microsoft.codeanalysis.analyzers/3.3.3/microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
@@ -28,9 +30,11 @@
     "/Users/maaitlunghau/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/7.1.2/microsoft.identitymodel.protocols.openidconnect.7.1.2.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/microsoft.identitymodel.tokens/8.15.0/microsoft.identitymodel.tokens.8.15.0.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/microsoft.openapi/2.4.1/microsoft.openapi.2.4.1.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/mimekit/4.15.1/mimekit.4.15.1.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/mysqlconnector/2.3.5/mysqlconnector.2.3.5.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/pomelo.entityframeworkcore.mysql/8.0.3/pomelo.entityframeworkcore.mysql.8.0.3.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/rabbitmq.client/7.2.1/rabbitmq.client.7.2.1.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/swashbuckle.aspnetcore/10.1.1/swashbuckle.aspnetcore.10.1.1.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/swashbuckle.aspnetcore.swagger/10.1.1/swashbuckle.aspnetcore.swagger.10.1.1.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/swashbuckle.aspnetcore.swaggergen/10.1.1/swashbuckle.aspnetcore.swaggergen.10.1.1.nupkg.sha512",
@@ -42,7 +46,8 @@
     "/Users/maaitlunghau/.nuget/packages/system.composition.hosting/6.0.0/system.composition.hosting.6.0.0.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/system.composition.runtime/6.0.0/system.composition.runtime.6.0.0.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/system.composition.typedparts/6.0.0/system.composition.typedparts.6.0.0.nupkg.sha512",
-    "/Users/maaitlunghau/.nuget/packages/system.identitymodel.tokens.jwt/8.15.0/system.identitymodel.tokens.jwt.8.15.0.nupkg.sha512"
+    "/Users/maaitlunghau/.nuget/packages/system.identitymodel.tokens.jwt/8.15.0/system.identitymodel.tokens.jwt.8.15.0.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/system.security.cryptography.pkcs/10.0.0/system.security.cryptography.pkcs.10.0.0.nupkg.sha512"
   ],
   "logs": []
 }

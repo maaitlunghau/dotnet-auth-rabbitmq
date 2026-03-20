@@ -9,10 +9,12 @@
       "server/1.0.0": {
         "dependencies": {
           "BCrypt.Net-Next": "4.0.3",
+          "MailKit": "4.15.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.25",
           "Microsoft.EntityFrameworkCore": "8.0.13",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.13",
           "Pomelo.EntityFrameworkCore.MySql": "8.0.3",
+          "RabbitMQ.Client": "7.2.1",
           "Swashbuckle.AspNetCore": "10.1.1",
           "System.IdentityModel.Tokens.Jwt": "8.15.0"
         },
@@ -28,11 +30,30 @@
           }
         }
       },
+      "BouncyCastle.Cryptography/2.6.2": {
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.6.2.46322"
+          }
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "runtime": {
           "lib/net6.0/Humanizer.dll": {
             "assemblyVersion": "2.14.0.0",
             "fileVersion": "2.14.1.48190"
+          }
+        }
+      },
+      "MailKit/4.15.1": {
+        "dependencies": {
+          "MimeKit": "4.15.1"
+        },
+        "runtime": {
+          "lib/net10.0/MailKit.dll": {
+            "assemblyVersion": "4.15.0.0",
+            "fileVersion": "4.15.1.0"
           }
         }
       },
@@ -397,6 +418,17 @@
           }
         }
       },
+      "MimeKit/4.15.1": {
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.6.2"
+        },
+        "runtime": {
+          "lib/net10.0/MimeKit.dll": {
+            "assemblyVersion": "4.15.0.0",
+            "fileVersion": "4.15.1.0"
+          }
+        }
+      },
       "Mono.TextTemplating/2.2.1": {
         "dependencies": {
           "System.CodeDom": "4.4.0"
@@ -425,6 +457,14 @@
           "lib/net8.0/Pomelo.EntityFrameworkCore.MySql.dll": {
             "assemblyVersion": "8.0.3.0",
             "fileVersion": "8.0.3.0"
+          }
+        }
+      },
+      "RabbitMQ.Client/7.2.1": {
+        "runtime": {
+          "lib/net8.0/RabbitMQ.Client.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.2.1.0"
           }
         }
       },
@@ -560,12 +600,26 @@
       "path": "bcrypt.net-next/4.0.3",
       "hashPath": "bcrypt.net-next.4.0.3.nupkg.sha512"
     },
+    "BouncyCastle.Cryptography/2.6.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7oWOcvnntmMKNzDLsdxAYqApt+AjpRpP2CShjMfIa3umZ42UQMvH0tl1qAliYPNYO6vTdcGMqnRrCPmsfzTI1w==",
+      "path": "bouncycastle.cryptography/2.6.2",
+      "hashPath": "bouncycastle.cryptography.2.6.2.nupkg.sha512"
+    },
     "Humanizer.Core/2.14.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
+    },
+    "MailKit/4.15.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4mLbqTbH3ctd0NlukHjVQbU3ZnNDuCtB6ttNZDLPZLWMA2Dr31rh/eCSTqOwDojUX8zfDOVaxstMgJTE9PwZNA==",
+      "path": "mailkit/4.15.1",
+      "hashPath": "mailkit.4.15.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.25": {
       "type": "package",
@@ -700,6 +754,13 @@
       "path": "microsoft.openapi/2.4.1",
       "hashPath": "microsoft.openapi.2.4.1.nupkg.sha512"
     },
+    "MimeKit/4.15.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cxCcQhD0zhboFoG136jJuJtQjNRDJ+BxBm3f2vWn+53bff/CRo+K1mAkWjsW4Wuyy5O22F40MdMG2nRzQu1cJw==",
+      "path": "mimekit/4.15.1",
+      "hashPath": "mimekit.4.15.1.nupkg.sha512"
+    },
     "Mono.TextTemplating/2.2.1": {
       "type": "package",
       "serviceable": true,
@@ -720,6 +781,13 @@
       "sha512": "sha512-gOHP6v/nFp5V/FgHqv9mZocGqCLGofihEX9dTbLhiXX3H7SJHmGX70GIPUpiqLT+1jIfDxg1PZh9MTUKuk7Kig==",
       "path": "pomelo.entityframeworkcore.mysql/8.0.3",
       "hashPath": "pomelo.entityframeworkcore.mysql.8.0.3.nupkg.sha512"
+    },
+    "RabbitMQ.Client/7.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YKXEfg9fVQiTKgZlvIhAfPSFaamEgi8DsQmisCH0IAsU4FYLrtoguDrDj6JtJVGUt40QPnBLRH6fTQcAC4qsOg==",
+      "path": "rabbitmq.client/7.2.1",
+      "hashPath": "rabbitmq.client.7.2.1.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/10.1.1": {
       "type": "package",
