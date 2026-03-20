@@ -1,5 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using server.DTOs;
 using server.DTOs.auth;
 using server.Models;
 using server.Repositories;
@@ -14,16 +15,19 @@ namespace server.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly TokenService _tokenService;
+        private readonly IMessageBusClient _messageBusClient;
 
         public AuthController(
            IUserRepository userRepository,
            IRefreshTokenRepository refreshTokenRepository,
-           TokenService tokenService
+           TokenService tokenService,
+           IMessageBusClient messageBusClient
        )
         {
             _userRepository = userRepository;
             _refreshTokenRepository = refreshTokenRepository;
             _tokenService = tokenService;
+            _messageBusClient = messageBusClient;
         }
 
         [HttpPost("register")]
@@ -37,23 +41,76 @@ namespace server.Controllers
                 if (existingUser != null)
                     return Conflict(new { message = "Email already registered" });
 
+                // Generate 8-digit code
+                var verificationCode = new Random().Next(10000000, 99999999).ToString();
+
                 var user = new User
                 {
                     Name = dto.Name,
                     Email = dto.Email,
                     Password = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                    Role = "user" // Default role
+                    Role = "user",
+                    Status = UserStatus.Pending,
+                    VerificationCode = verificationCode,
+                    VerificationCodeExpiresAt = DateTime.UtcNow.AddMinutes(15)
                 };
 
                 var createdUser = await _userRepository.CreateUserAsync(user);
+
+                // Send Email with verificationCode (RabbitMQ)
+                var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "EmailVerification.html");
+                var htmlBody = await System.IO.File.ReadAllTextAsync(templatePath);
+                htmlBody = htmlBody.Replace("{{Name}}", createdUser.Name).Replace("{{Code}}", verificationCode);
+
+                await _messageBusClient.PublishEmailAsync(new EmailMessageDto
+                {
+                    ToEmail = createdUser.Email,
+                    Subject = "Please verify your email",
+                    Body = htmlBody
+                });
 
                 return Ok(new RegisterResponseDto
                 {
                     Id = createdUser.Id,
                     Name = createdUser.Name,
                     Email = createdUser.Email,
+                    Status = createdUser.Status.ToString().ToLower(),
                     CreatedAt = createdUser.CreatedAtUTC
                 });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost("verify-email")]
+        public async Task<IActionResult> VerifyEmail([FromBody] VerifyEmailDto dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            try
+            {
+                var user = await _userRepository.GetUserByEmailAsync(dto.Email);
+                if (user == null)
+                    return NotFound(new { message = "User not found" });
+
+                if (user.Status == UserStatus.Active)
+                    return BadRequest(new { message = "Email already verified" });
+
+                if (user.VerificationCode != dto.Code)
+                    return BadRequest(new { message = "Invalid verification code" });
+
+                if (user.VerificationCodeExpiresAt < DateTime.UtcNow)
+                    return BadRequest(new { message = "Verification code expired" });
+
+                user.Status = UserStatus.Active;
+                user.VerificationCode = null;
+                user.VerificationCodeExpiresAt = null;
+
+                await _userRepository.UpdateUserAsync(user);
+
+                return Ok(new { message = "Email verified successfully. You can now login." });
             }
             catch (Exception ex)
             {
@@ -71,6 +128,12 @@ namespace server.Controllers
                 var existingUser = await _userRepository.GetUserByEmailAsync(dto.Email);
                 if (existingUser == null || !BCrypt.Net.BCrypt.Verify(dto.Password, existingUser.Password))
                     return Unauthorized(new { message = "Invalid email or password" });
+
+                if (existingUser.Status == UserStatus.Pending)
+                    return Unauthorized(new { message = "Please verify your email to login." });
+
+                if (existingUser.Status == UserStatus.Banned)
+                    return Unauthorized(new { message = "Your account has been banned." });
 
                 var (accessToken, jti) = _tokenService.CreateAccessToken(existingUser);
                 var refreshTokenRecord = _tokenService.CreateRefreshToken(existingUser.Id, jti);
