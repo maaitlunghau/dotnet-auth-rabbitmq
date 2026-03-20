@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wYtFgcw6rnw=",
+  "dgSpecHash": "tQVTpyOd0zA=",
   "success": true,
   "projectFilePath": "/Users/maaitlunghau/Documents/Projects/dotnet-auth-rabbitmq/server/server.csproj",
   "expectedPackageFiles": [
@@ -19,6 +19,10 @@
     "/Users/maaitlunghau/.nuget/packages/microsoft.entityframeworkcore.relational/8.0.13/microsoft.entityframeworkcore.relational.8.0.13.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/microsoft.entityframeworkcore.tools/8.0.13/microsoft.entityframeworkcore.tools.8.0.13.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/microsoft.extensions.dependencymodel/8.0.2/microsoft.extensions.dependencymodel.8.0.2.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/microsoft.identitymodel.abstractions/8.15.0/microsoft.identitymodel.abstractions.8.15.0.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/microsoft.identitymodel.jsonwebtokens/8.15.0/microsoft.identitymodel.jsonwebtokens.8.15.0.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/microsoft.identitymodel.logging/8.15.0/microsoft.identitymodel.logging.8.15.0.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/microsoft.identitymodel.tokens/8.15.0/microsoft.identitymodel.tokens.8.15.0.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/mysqlconnector/2.3.5/mysqlconnector.2.3.5.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/pomelo.entityframeworkcore.mysql/8.0.3/pomelo.entityframeworkcore.mysql.8.0.3.nupkg.sha512",
@@ -28,7 +32,8 @@
     "/Users/maaitlunghau/.nuget/packages/system.composition.convention/6.0.0/system.composition.convention.6.0.0.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/system.composition.hosting/6.0.0/system.composition.hosting.6.0.0.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/system.composition.runtime/6.0.0/system.composition.runtime.6.0.0.nupkg.sha512",
-    "/Users/maaitlunghau/.nuget/packages/system.composition.typedparts/6.0.0/system.composition.typedparts.6.0.0.nupkg.sha512"
+    "/Users/maaitlunghau/.nuget/packages/system.composition.typedparts/6.0.0/system.composition.typedparts.6.0.0.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/system.identitymodel.tokens.jwt/8.15.0/system.identitymodel.tokens.jwt.8.15.0.nupkg.sha512"
   ],
   "logs": []
 }
