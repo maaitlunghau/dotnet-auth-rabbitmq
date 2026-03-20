@@ -17,6 +17,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserService>();
 builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRecordService>();
+builder.Services.AddSingleton<TokenService>();
 
 var app = builder.Build();
 
