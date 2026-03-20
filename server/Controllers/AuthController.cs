@@ -5,6 +5,7 @@ using server.DTOs.auth;
 using server.Models;
 using server.Repositories;
 using server.Services;
+using server.DTOs.messages;
 
 namespace server.Controllers
 {
@@ -69,6 +70,15 @@ namespace server.Controllers
                     Body = htmlBody
                 });
 
+                // Publish Registration Notification (Stored in DB for first login)
+                await _messageBusClient.PublishNotificationAsync(new NotificationMessage
+                {
+                    UserId = createdUser.Id.ToString(),
+                    Title = "Account Created Successfully",
+                    Body = $"Welcome {createdUser.Name}! Your account has been created. Once you verify your email, you will have full access to all features.",
+                    Type = "success"
+                });
+
                 return Ok(new RegisterResponseDto
                 {
                     Id = createdUser.Id,
@@ -80,7 +90,7 @@ namespace server.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { message = "Registration error", detail = ex.Message });
             }
         }
 
@@ -110,11 +120,20 @@ namespace server.Controllers
 
                 await _userRepository.UpdateUserAsync(user);
 
+                // Publish Notification (RabbitMQ)
+                await _messageBusClient.PublishNotificationAsync(new NotificationMessage
+                {
+                    UserId = user.Id.ToString(),
+                    Title = "Email Verified",
+                    Body = "Welcome! Your email has been successfully verified. You now have full access to the platform.",
+                    Type = "success"
+                });
+
                 return Ok(new { message = "Email verified successfully. You can now login." });
             }
             catch (Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { message = "Email verification error", detail = ex.Message });
             }
         }
 
@@ -140,6 +159,15 @@ namespace server.Controllers
 
                 await _refreshTokenRepository.CreateAsync(refreshTokenRecord);
 
+                // Publish Login Notification
+                await _messageBusClient.PublishNotificationAsync(new NotificationMessage
+                {
+                    UserId = existingUser.Id.ToString(),
+                    Title = "Login Successful",
+                    Body = $"Welcome back, {existingUser.Name}! We're glad to see you again.",
+                    Type = "info"
+                });
+
                 return Ok(new LoginResponseDto
                 {
                     AccessToken = accessToken,
@@ -148,8 +176,7 @@ namespace server.Controllers
             }
             catch (Exception ex)
             {
-                var detailMessage = $"Exception message: {ex.Message}. Detail: {ex}";
-                return StatusCode((int)HttpStatusCode.InternalServerError, detailMessage);
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { message = "Login error", detail = ex.Message });
             }
         }
 
@@ -171,12 +198,20 @@ namespace server.Controllers
 
                 await _refreshTokenRepository.RevokeAsync(refreshToken);
 
+                // Publish Logout Notification
+                await _messageBusClient.PublishNotificationAsync(new NotificationMessage
+                {
+                    UserId = refreshToken.UserId.ToString(),
+                    Title = "Logged Out",
+                    Body = $"You have successfully logged out at {DateTime.UtcNow:HH:mm:ss}. See you later!",
+                    Type = "warning"
+                });
+
                 return Ok(new { message = "Logged out successfully" });
             }
             catch (Exception ex)
             {
-                var detailMessage = $"Exception message: {ex.Message}. Detail: {ex}";
-                return StatusCode((int)HttpStatusCode.InternalServerError, detailMessage);
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { message = "Logout error", detail = ex.Message });
             }
         }
 
@@ -215,8 +250,7 @@ namespace server.Controllers
             }
             catch (Exception ex)
             {
-                var detailMessage = $"Exception message: {ex.Message}. Detail: {ex}";
-                return StatusCode((int)HttpStatusCode.InternalServerError, detailMessage);
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { message = "Token refresh error", detail = ex.Message });
             }
         }
     }
