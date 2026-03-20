@@ -16,29 +16,29 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-bg-secondary px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-secondary px-4">
       {/* Logo */}
       <div className="mb-6 animate-fade-in">
-        <div className="w-12 h-12 bg-text-primary rounded-xl flex items-center justify-center mx-auto">
-          <Shield size={24} className="text-text-inverse" />
+        <div className="w-12 h-12 bg-content-primary rounded-xl flex items-center justify-center mx-auto">
+          <Shield size={24} className="text-content-inverse" />
         </div>
       </div>
 
       <div className="w-full max-w-sm animate-fade-in" style={{ animationDelay: "0.1s" }}>
         {status === "sent" ? (
           /* Success State */
-          <div className="bg-bg-card border border-border-primary rounded-xl p-8 text-center animate-scale-in">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-accent-success-bg flex items-center justify-center">
-              <Mail size={28} className="text-accent-success" />
+          <div className="bg-card border border-border-base rounded-xl p-8 text-center animate-scale-in">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-success-bg flex items-center justify-center">
+              <Mail size={28} className="text-success" />
             </div>
-            <h2 className="text-xl font-semibold text-text-primary mb-2">Check your email</h2>
-            <p className="text-sm text-text-secondary mb-1">
+            <h2 className="text-xl font-semibold text-content-primary mb-2">Check your email</h2>
+            <p className="text-sm text-content-secondary mb-1">
               We sent a password reset link to
             </p>
-            <p className="text-sm font-medium text-text-primary mb-6">{email}</p>
+            <p className="text-sm font-medium text-content-primary mb-6">{email}</p>
             <Link
               href="/login"
-              className="inline-flex items-center gap-1.5 text-sm text-accent-primary font-medium hover:underline"
+              className="inline-flex items-center gap-1.5 text-sm text-brand font-medium hover:underline"
             >
               <ArrowLeft size={14} />
               Back to sign in
@@ -47,17 +47,17 @@ export default function ForgotPasswordPage() {
         ) : (
           /* Form State */
           <>
-            <h1 className="text-2xl font-semibold text-text-primary text-center mb-2">
+            <h1 className="text-2xl font-semibold text-content-primary text-center mb-2">
               Reset your password
             </h1>
-            <p className="text-sm text-text-secondary text-center mb-6">
+            <p className="text-sm text-content-secondary text-center mb-6">
               Enter your email address and we'll send you a link to reset your password.
             </p>
 
-            <div className="bg-bg-card border border-border-primary rounded-xl p-6 mb-4">
+            <div className="bg-card border border-border-base rounded-xl p-6 mb-4">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-text-primary mb-1.5">
+                  <label className="block text-sm font-medium text-content-primary mb-1.5">
                     Email address
                   </label>
                   <input
@@ -65,9 +65,9 @@ export default function ForgotPasswordPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full px-3 py-2 text-sm bg-bg-input border border-border-primary rounded-lg
-                      text-text-primary placeholder:text-text-tertiary
-                      focus:outline-none focus:ring-2 focus:ring-border-focus focus:border-border-focus
+                    className="w-full px-3 py-2 text-sm bg-input border border-border-base rounded-lg
+                      text-content-primary placeholder:text-content-tertiary
+                      focus:outline-none focus:ring-2 focus:ring-border-active focus:border-border-active
                       transition-all"
                     placeholder="you@example.com"
                   />
@@ -76,8 +76,8 @@ export default function ForgotPasswordPage() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full py-2.5 text-sm font-medium text-button-primary-text bg-button-primary
-                    hover:bg-button-primary-hover rounded-lg transition-colors
+                  className="w-full py-2.5 text-sm font-medium text-btn-primary-text bg-btn-primary
+                    hover:bg-btn-primary-hover rounded-lg transition-colors
                     disabled:opacity-60 disabled:cursor-not-allowed
                     flex items-center justify-center gap-2"
                 >
@@ -96,7 +96,7 @@ export default function ForgotPasswordPage() {
             <div className="text-center">
               <Link
                 href="/login"
-                className="inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors"
+                className="inline-flex items-center gap-1.5 text-sm text-content-secondary hover:text-content-primary transition-colors"
               >
                 <ArrowLeft size={14} />
                 Back to sign in
