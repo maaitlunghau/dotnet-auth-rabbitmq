@@ -7,8 +7,8 @@ export default function OAuthButtons() {
       <button
         type="button"
         className="w-full flex items-center justify-center gap-3 px-4 py-2.5 text-sm font-medium
-          text-text-primary bg-bg-primary border border-border-primary rounded-lg
-          hover:bg-bg-secondary transition-colors"
+          text-content-primary bg-primary border border-border-base rounded-lg
+          hover:bg-secondary transition-colors"
       >
         <svg viewBox="0 0 24 24" width="20" height="20">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
@@ -23,7 +23,7 @@ export default function OAuthButtons() {
       <button
         type="button"
         className="w-full flex items-center justify-center gap-3 px-4 py-2.5 text-sm font-medium
-          text-text-inverse bg-text-primary rounded-lg
+          text-content-inverse bg-content-primary rounded-lg
           hover:opacity-90 transition-opacity"
       >
         <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
