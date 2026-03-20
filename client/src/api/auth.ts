@@ -17,8 +17,8 @@ export const authApi = {
     const response = await axiosClient.post("/auth/verify-email", data);
     return response.data;
   },
-  logout: async (email: string) => {
-    const response = await axiosClient.post("/auth/logout", { email });
+  logout: async (refreshToken: string) => {
+    const response = await axiosClient.post("/auth/logout", { refreshToken });
     return response.data;
   },
 };
