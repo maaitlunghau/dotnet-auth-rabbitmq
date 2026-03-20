@@ -4,6 +4,7 @@ import "./globals.css";
 
 import QueryProvider from "@/providers/query-provider";
 import ThemeProvider from "@/providers/theme-provider";
+import { NotificationProvider } from "@/providers/notification-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,10 +32,12 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-bg-primary text-text-primary">
+      <body className="min-h-full flex flex-col bg-primary text-content-primary">
         <QueryProvider>
           <ThemeProvider>
-            {children}
+            <NotificationProvider>
+              {children}
+            </NotificationProvider>
           </ThemeProvider>
         </QueryProvider>
       </body>

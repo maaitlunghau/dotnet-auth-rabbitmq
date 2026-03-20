@@ -7,8 +7,9 @@ public class DataContext : DbContext
 {
     public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-    public DbSet<User> Users { get; set; }
-    public DbSet<RefreshTokenRecord> RefreshTokenRecords { get; set; }
+    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<RefreshTokenRecord> RefreshTokenRecords { get; set; } = null!;
+    public DbSet<Notification> Notifications { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,6 +23,12 @@ public class DataContext : DbContext
             .HasOne(rft => rft.User)
             .WithMany(u => u.RefreshTokenRecords)
             .HasForeignKey(rft => rft.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Notification>()
+            .HasOne(n => n.User)
+            .WithMany() // or WithMany(u => u.Notifications) if we add it to User
+            .HasForeignKey(n => n.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<User>().HasData(new User
