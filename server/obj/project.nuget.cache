@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kWB6MNch9pc=",
+  "dgSpecHash": "8ZA18IQb2u8=",
   "success": true,
   "projectFilePath": "/Users/maaitlunghau/Documents/Projects/dotnet-auth-rabbitmq/server/server.csproj",
   "expectedPackageFiles": [
@@ -31,6 +31,7 @@
     "/Users/maaitlunghau/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/mysqlconnector/2.3.5/mysqlconnector.2.3.5.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/pomelo.entityframeworkcore.mysql/8.0.3/pomelo.entityframeworkcore.mysql.8.0.3.nupkg.sha512",
+    "/Users/maaitlunghau/.nuget/packages/rabbitmq.client/7.2.1/rabbitmq.client.7.2.1.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/swashbuckle.aspnetcore/10.1.1/swashbuckle.aspnetcore.10.1.1.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/swashbuckle.aspnetcore.swagger/10.1.1/swashbuckle.aspnetcore.swagger.10.1.1.nupkg.sha512",
     "/Users/maaitlunghau/.nuget/packages/swashbuckle.aspnetcore.swaggergen/10.1.1/swashbuckle.aspnetcore.swaggergen.10.1.1.nupkg.sha512",

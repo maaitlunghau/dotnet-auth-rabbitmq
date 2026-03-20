@@ -24,6 +24,13 @@ public class User
     [StringLength(20)]
     public string Role { get; set; } = "user";
 
+    public UserStatus Status { get; set; } = UserStatus.Pending;
+
+    [StringLength(8)]
+    public string? VerificationCode { get; set; }
+
+    public DateTime? VerificationCodeExpiresAt { get; set; }
+
     public DateTime CreatedAtUTC { get; set; } = DateTime.UtcNow;
 
     public DateTime UpdatedAtUTC { get; set; } = DateTime.UtcNow;

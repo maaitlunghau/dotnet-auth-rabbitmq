@@ -115,3 +115,4 @@
 /Users/maaitlunghau/Documents/Projects/dotnet-auth-rabbitmq/server/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/maaitlunghau/Documents/Projects/dotnet-auth-rabbitmq/server/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/maaitlunghau/Documents/Projects/dotnet-auth-rabbitmq/server/obj/Debug/net10.0/server.MvcApplicationPartsAssemblyInfo.cs
+/Users/maaitlunghau/Documents/Projects/dotnet-auth-rabbitmq/server/bin/Debug/net10.0/RabbitMQ.Client.dll
