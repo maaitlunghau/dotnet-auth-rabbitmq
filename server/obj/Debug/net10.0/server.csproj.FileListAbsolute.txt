@@ -116,3 +116,6 @@
 /Users/maaitlunghau/Documents/Projects/dotnet-auth-rabbitmq/server/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/maaitlunghau/Documents/Projects/dotnet-auth-rabbitmq/server/obj/Debug/net10.0/server.MvcApplicationPartsAssemblyInfo.cs
 /Users/maaitlunghau/Documents/Projects/dotnet-auth-rabbitmq/server/bin/Debug/net10.0/RabbitMQ.Client.dll
+/Users/maaitlunghau/Documents/Projects/dotnet-auth-rabbitmq/server/bin/Debug/net10.0/BouncyCastle.Cryptography.dll
+/Users/maaitlunghau/Documents/Projects/dotnet-auth-rabbitmq/server/bin/Debug/net10.0/MailKit.dll
+/Users/maaitlunghau/Documents/Projects/dotnet-auth-rabbitmq/server/bin/Debug/net10.0/MimeKit.dll
