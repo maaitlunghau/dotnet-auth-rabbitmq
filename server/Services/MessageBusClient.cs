@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using RabbitMQ.Client;
 using server.DTOs;
+using server.DTOs.messages;
 
 namespace server.Services;
 
@@ -26,13 +27,23 @@ public class MessageBusClient : IMessageBusClient
 
     public async Task PublishEmailAsync(EmailMessageDto message)
     {
+        await PublishToQueueAsync("email_queue", message);
+    }
+
+    public async Task PublishNotificationAsync(NotificationMessage message)
+    {
+        await PublishToQueueAsync("notification_queue", message);
+    }
+
+    private async Task PublishToQueueAsync<T>(string queueName, T message)
+    {
         try
         {
             using var connection = await _factory.CreateConnectionAsync();
             using var channel = await connection.CreateChannelAsync();
 
             await channel.QueueDeclareAsync(
-                queue: "email_queue",
+                queue: queueName,
                 durable: true,
                 exclusive: false,
                 autoDelete: false,
@@ -44,15 +55,15 @@ public class MessageBusClient : IMessageBusClient
 
             await channel.BasicPublishAsync(
                 exchange: string.Empty,
-                routingKey: "email_queue",
+                routingKey: queueName,
                 body: encodedBody
             );
 
-            Console.WriteLine("--> Message published to RabbitMQ");
+            Console.WriteLine($"--> Message published to RabbitMQ queue: {queueName}");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"--> Could not send message to Message Bus: {ex.Message}");
+            Console.WriteLine($"--> Could not send message to Message Bus ({queueName}): {ex.Message}");
         }
     }
 }
