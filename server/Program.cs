@@ -22,6 +22,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserService>();
 builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRecordService>();
 builder.Services.AddSingleton<TokenService>();
+builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
 
 // configure JWT Bearer Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

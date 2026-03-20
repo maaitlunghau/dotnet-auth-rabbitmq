@@ -13,6 +13,7 @@
           "Microsoft.EntityFrameworkCore": "8.0.13",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.13",
           "Pomelo.EntityFrameworkCore.MySql": "8.0.3",
+          "RabbitMQ.Client": "7.2.1",
           "Swashbuckle.AspNetCore": "10.1.1",
           "System.IdentityModel.Tokens.Jwt": "8.15.0"
         },
@@ -428,6 +429,14 @@
           }
         }
       },
+      "RabbitMQ.Client/7.2.1": {
+        "runtime": {
+          "lib/net8.0/RabbitMQ.Client.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.2.1.0"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/10.1.1": {
         "dependencies": {
           "Swashbuckle.AspNetCore.Swagger": "10.1.1",
@@ -720,6 +729,13 @@
       "sha512": "sha512-gOHP6v/nFp5V/FgHqv9mZocGqCLGofihEX9dTbLhiXX3H7SJHmGX70GIPUpiqLT+1jIfDxg1PZh9MTUKuk7Kig==",
       "path": "pomelo.entityframeworkcore.mysql/8.0.3",
       "hashPath": "pomelo.entityframeworkcore.mysql.8.0.3.nupkg.sha512"
+    },
+    "RabbitMQ.Client/7.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YKXEfg9fVQiTKgZlvIhAfPSFaamEgi8DsQmisCH0IAsU4FYLrtoguDrDj6JtJVGUt40QPnBLRH6fTQcAC4qsOg==",
+      "path": "rabbitmq.client/7.2.1",
+      "hashPath": "rabbitmq.client.7.2.1.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/10.1.1": {
       "type": "package",
