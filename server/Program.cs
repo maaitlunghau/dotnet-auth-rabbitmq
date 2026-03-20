@@ -1,8 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using server.Data;
+using server.Repositories;
+using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseMySql(
@@ -10,6 +14,8 @@ builder.Services.AddDbContext<DataContext>(options =>
         ServerVersion.AutoDetect(builder.Configuration
         .GetConnectionString("ConnectedMySQL"))
     ));
+
+builder.Services.AddScoped<IUserRepository, UserService>();
 
 var app = builder.Build();
 
@@ -22,6 +28,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapControllers();
 
 app.Run();
 

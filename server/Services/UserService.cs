@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
+using server.Repositories;
 
 namespace server.Services;
 
-public class UserService
+public class UserService : IUserRepository
 {
     private readonly DataContext _dbContext;
     public UserService(DataContext dbContext) => _dbContext = dbContext;
